@@ -1,0 +1,34 @@
+<div class="col.md-12 mt-3">
+    <h1>{{texto}}</h1>
+    <hr>
+
+    <div class="alert alert-success col-md-5 mt-3" *ngIf="status == 'success'">
+        Video Saved 
+    </div>
+
+    <div class="alert alert-danger col-md-5 mt-3" *ngIf="status == 'error'">
+        Error. Try again.
+    </div>
+
+    <form class="col-md-5" #videoNew="ngForm" (ngSubmit)="onSubmit(videoNew)">
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" name="title" #title="ngModel" [(ngModel)]="video.title" class="form-control" required >
+            <small *ngIf="!title.valid && title.touched" class="invalid-feedback d-block">title not valid</small>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea type="text" name="description" #description="ngModel" [(ngModel)]="video.description" class="form-control" required></textarea>
+            <small *ngIf="!description.valid && description.touched" class="invalid-feedback d-block">Description not valid</small>
+        </div>
+
+        <div class="form-group">
+            <label for="url">URL:</label>
+            <input type="text" name="url" #url="ngModel" [(ngModel)]="video.url" class="form-control" required  >
+            <small *ngIf="!url.valid && url.touched" class="invalid-feedback d-block">URL not valid</small>
+        </div>
+
+        <input type="submit" value="Save video" class="btn btn-success" [disabled]="videoNew.invalid" />
+    </form>
+</div>

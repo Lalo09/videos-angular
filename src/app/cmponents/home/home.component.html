@@ -1,0 +1,83 @@
+<!--
+    <div *ngIf="identity; else elseBlock">Content to render when condition is true.</div>
+<ng-template #elseBlock>Content to render when condition is false.</ng-template>
+-->
+
+<div *ngIf="token; else elseBlock">
+  <div class="col.md-12 mt-3" >
+    <h1>{{page_title}}</h1>
+    <hr>
+
+    <div class="card-columns">
+      <article class="card w-100" *ngFor="let video of videos">
+        <div class="card-header">
+          <h3>
+            {{video.title}}
+          </h3>
+        </div>
+        <div class="card-body">
+          <!--MINIATURA-->
+          <div class="video-image w-100 mb-2" *ngIf="video.url">
+            <img src="{{getThumb(video.url)}}" class="w-100" />
+          </div>
+          <!--BOTONES-->
+          <div class="video-buttons">
+            <a [routerLink]="['/video',video.id]" class="btn btn-success mr-2">View</a>
+            <a [routerLink]="['/edit-video',video.id]" class="btn btn-warning mr-2">Edit</a>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger" data-toggle="modal" [attr.data-target]="'#borrar'+video.id">
+              Delete
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="{{'borrar'+video.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Sure?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    Do you want delete {{video.title}} ?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button (click)="deleteVideo(video.id)"  type="button" class="btn btn-danger" data-dismiss="modal">Confirm Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link" [routerLink]="['/home',prev_page]">Previous</a></li>
+        <li class="page-item" *ngFor="let num of number_pages"><a class="page-link" [routerLink]="['/home',num]">{{num}}</a></li>
+        <li class="page-item"><a class="page-link" [routerLink]="['/home',next_page]">Next</a></li>
+      </ul>
+    </nav>
+
+  </div>
+</div>
+
+<ng-template #elseBlock>
+  <div class="col.md-12 mt-3" >
+    <div class="jumbotron">
+        <h1 class="display-4">Welcome </h1>
+        <p class="lead">Register now</p>
+        <hr class="my-4">
+        <p>Save your videos.</p>
+        <p class="lead">
+          <a class="btn btn-primary btn-lg mx-1" [routerLink]="['/login']" role="button">Login</a>
+          <a class="btn btn-success btn-lg" [routerLink]="['/register']" role="button">Register</a>
+        </p>
+      </div>
+</div>
+</ng-template>
+
+

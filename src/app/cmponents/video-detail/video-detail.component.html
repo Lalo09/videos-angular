@@ -1,0 +1,12 @@
+<div class="col-md-12 mt-5" *ngIf="!video">
+Loading...
+</div>
+
+<div class="col-md-12 mt-3" *ngIf="video">
+    <h1>{{video.title}}</h1>
+    <span class="badge badge-secondary mb-2">{{video.user.name + " " + video.user.surname}}</span>
+    <p [innerHtml]="video.description"></p>
+    <p>
+        <iframe width="560" height="315" [src]="getVideoIframe(video.url)" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </p>
+</div>
